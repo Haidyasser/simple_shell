@@ -15,7 +15,7 @@ int main(void)
 		display(">> ");
 		command = read_command();
 		args = split_command(command);
-		status = execute(args);
+		status = excute(args);
 
 		free(command);
 		free(args);

@@ -19,7 +19,7 @@ char **split_command(char *command)
 		exit(EXIT_FAILURE);
 	}
 
-	token = strtok(command, " \n\t\r\a");
+	token = strtok(command, " \n\"\'");
 	while (token != NULL)
 	{
 		tokens[position] = token;
@@ -36,7 +36,7 @@ char **split_command(char *command)
 			}
 		}
 
-		token = strtok(NULL, " \n\t\r\a");
+		token = strtok(NULL, " \n\"\'");
 	}
 	tokens[position] = NULL;
 	return (tokens);
