@@ -8,37 +8,37 @@
 
 char **split_command(char *command)
 {
-        char **words;
-        char *token;
-        int bufsize = 64, position = 0;
+	char **tokens;
+	char *token;
+	int bufsize = 64, position = 0;
 
-        words = malloc(bufsize * sizeof(char *));
-        if (!words)
-        {
-                perror("malloc error");
-                exit(EXIT_FAILURE);
-        }
+	tokens = malloc(bufsize * sizeof(char *));
+	if (!tokens)
+	{
+		perror("malloc error");
+		exit(EXIT_FAILURE);
+	}
 
-        token = strtok(command, " \n\t\r\a");
-        while (token != NULL)
-        {
-                words[position] = token;
-                position++;
+	token = strtok(command, " \n\t\r\a");
+	while (token != NULL)
+	{
+		tokens[position] = token;
+		position++;
 
-                if (position >= bufsize)
-                {
-                        bufsize += 64;
-                        words = realloc(words, bufsize * sizeof(char *));
-                        if (!words)
-                        {
-                                perror("realloc error");
-                                exit(EXIT_FAILURE);
-                        }
-                }
+		if (position >= bufsize)
+		{
+			bufsize += 64;
+			tokens = realloc(tokens, bufsize * sizeof(char *));
+			if (!tokens)
+			{
+				perror("realloc error");
+				exit(EXIT_FAILURE);
+			}
+		}
 
-                token = strtok(NULL, " \n\t\r\a");
-        }
-        words[position] = NULL;
-        return (words);
+		token = strtok(NULL, " \n\t\r\a");
+	}
+	tokens[position] = NULL;
+	return (tokens);
 
 }
