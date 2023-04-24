@@ -18,7 +18,7 @@ int main(void)
 		status = execute(args);
 
 		free(command);
-		//free(args);
+		free(args);
 	}
 	return (0);
 }

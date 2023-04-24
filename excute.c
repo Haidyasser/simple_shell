@@ -2,7 +2,7 @@
 
 /**
  * execute - execute a command
- * @command: command to execute
+ * @words: array of words
  * Return: 1 if success, 0 if fail
  */
 int execute(char **words)

@@ -10,10 +10,11 @@ char *read_command()
 	char *buf;
 	size_t n = 0;
 	int status;
+
 	status = getline(&buf, &n, stdin);
 	if (status == -1)
 	{
-		if(feof(stdin))
+		if (feof(stdin))
 		{
 			exit(EXIT_SUCCESS);
 		}
@@ -23,5 +24,5 @@ char *read_command()
 			exit(EXIT_FAILURE);
 		}
 	}
-	return buf;
+	return (buf);
 }

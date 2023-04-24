@@ -8,5 +8,4 @@
 
 char **split_command(char *command)
 {
-	
 }
