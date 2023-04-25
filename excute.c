@@ -88,7 +88,7 @@ int excute(char **args)
 	if (args[0] == NULL)
 		return (1);
 	for (i = 0; i < 3; i++)
-		if (strcmp(args[0], built_in[i]) == 0)
+		if (_strcmp(args[0], built_in[i]) == 0)
 			return ((*built_in_func[i])(args));
 	location = get_location(args[0]);
 	if (location == NULL)
@@ -114,4 +114,3 @@ int excute(char **args)
 	free(location);
 	return (1);
 }
-

@@ -1,21 +1,6 @@
 #include "shell.h"
 
 /**
- * _strcpy - copy a string
- * @dest: destination
- * @src: source
- */
-
-void _strcpy(char *dest, char *src)
-{
-	int i;
-
-	for (i = 0; src[i] != '\0'; i++)
-		dest[i] = src[i];
-	dest[i] = '\0';
-}
-
-/**
  * split_command - split a command
  * @command: command to split
  * @nread: number of characters the user types
