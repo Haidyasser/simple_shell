@@ -50,3 +50,45 @@ int _strlen(char *s)
                 ;
         return (i);
 }
+
+/**
+ * _strdup - duplicates a string
+ * @str: string to duplicate
+ * Return: the duplicated string
+ */
+
+char *_strdup(char *str)
+{
+        char *dup;
+        int i;
+
+        if (str == NULL)
+                return (NULL);
+        dup = malloc(sizeof(char) * (_strlen(str) + 1));
+        if (dup == NULL)
+                return (NULL);
+        for (i = 0; str[i] != '\0'; i++)
+                dup[i] = str[i];
+        dup[i] = '\0';
+        return (dup);
+}
+
+/**
+ * _strcat - concatenates two strings
+ * @dest: destination string
+ * @src: source string
+ * Return: the concatenated string
+ */
+
+char *_strcat(char *dest, char *src)
+{
+        int i, j;
+
+        for (i = 0; dest[i] != '\0'; i++)
+                ;
+        for (j = 0; src[j] != '\0'; j++)
+                dest[i + j] = src[j];
+        dest[i + j] = '\0';
+        return (dest);
+}
+
