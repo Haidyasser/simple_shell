@@ -1,5 +1,6 @@
 #ifndef SHELL_H
 #define SHELL_H
+#define delim " \n\"\'*;"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -10,8 +11,8 @@
 #include <sys/stat.h>
 
 void display(char *);
-char *read_command();
-char **split_command(char *);
+char *read_command(int *);
+char **split_command(char *, int *);
 int excute(char **);
 char *get_location(char *command);
 
