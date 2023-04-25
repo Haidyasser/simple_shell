@@ -31,6 +31,7 @@ char **split_command(char *command, int *nread)
 	args = malloc(sizeof(char *) * (num_tokens + 1));
 	if (args == NULL)
 	{
+		free(copied);
 		perror("malloc");
 		exit(EXIT_FAILURE);
 	}

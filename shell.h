@@ -1,6 +1,6 @@
 #ifndef SHELL_H
 #define SHELL_H
-#define delim " \n\"\';*()&|<>?[]{}\\`~!@#$%^=+,"
+#define delim " \n\"\';"
 #define environ __environ
 
 #include <stdio.h>
@@ -11,6 +11,7 @@
 #include <sys/wait.h>
 #include <sys/stat.h>
 #include <signal.h>
+#include  <signal.h>
 
 /*main functions*/
 void display(char *);
@@ -24,6 +25,7 @@ int _getline(char **line);
 int shell_exit(char **);
 int shell_env(char **);
 int shell_cd(char **);
+void handlec(int sig);
 
 /*string functions*/
 int _strcmp(char *, char *);

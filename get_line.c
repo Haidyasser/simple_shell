@@ -36,5 +36,6 @@ int _getline(char **line)
 	}
 	_strncpy(*line, buffer, size);
 	free(buffer);
+
 	return (size);
 }

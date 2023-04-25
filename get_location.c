@@ -80,7 +80,6 @@ char *get_location(char *command)
 			if (stat(file_path, &buffer) == 0)
 			{
 				free(path_copy);
-
 				return (file_path);
 			}
 			else

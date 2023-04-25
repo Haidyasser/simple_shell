@@ -1,5 +1,11 @@
 #include "shell.h"
 
+void handlec(int sig)
+{
+	signal(sig, handlec);
+	write(1, "\n>> ", 4);
+}
+
 /**
  * handler - handles the signal
  * @sig: signal
@@ -20,7 +26,7 @@ void handler(int sig)
 
 char *read_command(int *nread)
 {
-	char *buf;
+	char *buf = NULL;
 	size_t bufsize = 0;
 
 	signal(SIGINT, handler);
@@ -29,13 +35,12 @@ char *read_command(int *nread)
 	{
 		if (feof(stdin))
 		{
+			free(buf);
+			write(1, "\n", 1);
 			exit(EXIT_SUCCESS);
 		}
-		else
-		{
-			perror("readline");
-			exit(EXIT_FAILURE);
-		}
+		perror("readline");
+		exit(EXIT_FAILURE);
 	}
 	return (buf);
 }
