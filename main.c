@@ -9,12 +9,13 @@ int main(void)
 {
 	char *command, **args;
 	int status = 1;
+	int nread; /* number of characters the user types */
 
 	while (status)
 	{
 		display(">> ");
-		command = read_command();
-		args = split_command(command);
+		command = read_command(&nread);
+		args = split_command(command, &nread);
 		status = excute(args);
 
 		free(command);
