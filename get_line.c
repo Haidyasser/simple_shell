@@ -1,70 +1,64 @@
 #include "shell.h"
 
+#define READ_SIZE 1024
 
 /**
- * _getline - Read an entire line from a file descriptor
- * @lineptr: Pointer to a buffer where the line will be stored
- * @n: Pointer to the size of the buffer
- * @fd: File descriptor to read from
- * Return: Number of bytes read, or -1 on failure
+ * _getline - read an entire line from a file descriptor
+ * @fd: the file descriptor to read from
+ *
+ * Return: a pointer to the line read, or NULL if the end of file was reached
+ * or an error occurred
  */
-void assign_lineptr(char **lineptr, size_t *n, char *buffer, size_t b);
-ssize_t _getline(char **lineptr, size_t *n, int fd)
+char *_getline(const int fd)
 {
-    char *buffer = NULL;
-    size_t input = 0, capacity = 0;
-    ssize_t count;
+    static char *line = NULL;
+    static size_t bytes_allocated = 0;
+    size_t total_bytes = 0, line_length = 0;
 
-    if (!lineptr || !n)
-        return (-1);
+    if (fd == -1)
+        return (NULL);
 
-    do {
-        if (input == capacity)
+    while (1)
+    {
+        /* Make sure we have enough space in the buffer */
+        if (total_bytes >= bytes_allocated - 1)
         {
-            capacity = capacity * 2 + 1;
-            buffer = realloc(buffer, capacity);
-            if (!buffer)
-                return (-1);
+            bytes_allocated += READ_SIZE;
+            line = realloc(line, bytes_allocated);
+            if (!line)
+                return (NULL);
         }
 
-        count = read(fd, buffer + input, capacity - input);
-        if (count < 0)
+        /* Read a chunk of data from the file descriptor */
+        ssize_t bytes_read = read(fd, line + total_bytes, READ_SIZE);
+        if (bytes_read < 0)
+            return (NULL);
+        if (bytes_read == 0)
         {
-            free(buffer);
-            return (-1);
+            if (total_bytes == 0)
+                return (NULL);
+            break;
         }
-        input += count;
-    } while (count > 0 && buffer[input - 1] != '\n');
 
-    if (input == 0)
-        return (-1);
+        /* Update the total number of bytes read */
+        total_bytes += bytes_read;
 
-    if (buffer[input - 1] == '\n')
-        input--;
+        /* Check if we have reached the end of a line */
+        line_length = strnlen(line, total_bytes);
+        if (line[line_length - 1] == '\n')
+            break;
+    }
 
-    buffer[input] = '\0';
+    /* Trim any trailing newlines */
+    while (line_length > 0 && (line[line_length - 1] == '\n' || line[line_length - 1] == '\r'))
+        line[--line_length] = '\0';
 
-    assign_lineptr(lineptr, n, buffer, input);
+    /* Shrink the buffer to fit the line */
+    char *new_line = realloc(line, line_length + 1);
+    if (!new_line)
+        return (NULL);
+    line = new_line;
 
-    return (input);
-}
-
-/**
- * assign_lineptr - Assign a new line buffer to a pointer
- * @lineptr: Pointer to a buffer pointer
- * @n: Pointer to the size of the buffer
- * @buffer: Pointer to the new buffer
- * @b: Size of the new buffer
- */
-void assign_lineptr(char **lineptr, size_t *n, char *buffer, size_t b)
-{
-    if (!lineptr || !n || !buffer)
-        return;
-
-    if (*lineptr)
-        free(*lineptr);
-
-    *lineptr = buffer;
-    *n = b;
+    return (line_length ? line : NULL);
 }
 
