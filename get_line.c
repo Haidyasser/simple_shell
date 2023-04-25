@@ -1,64 +1,44 @@
 #include "shell.h"
-
-#define READ_SIZE 1024
-
 /**
- * _getline - read an entire line from a file descriptor
- * @fd: the file descriptor to read from
- *
- * Return: a pointer to the line read, or NULL if the end of file was reached
- * or an error occurred
+ * _getline - get a line from stdin
+ * @line: pointer to a pointer to a string
+ * Return: number of characters read
+ * On error: -1 inapropiate entry
  */
-char *_getline(const int fd)
+int _getline(char **line)
 {
-    static char *line = NULL;
-    static size_t bytes_allocated = 0;
-    size_t total_bytes = 0, line_length = 0;
-
-    if (fd == -1)
-        return (NULL);
-
-    while (1)
-    {
-        /* Make sure we have enough space in the buffer */
-        if (total_bytes >= bytes_allocated - 1)
+        int i = 0, size = 0, nread = 0;
+        char *buffer = NULL;
+        if (line == NULL)
+                return (-1);
+        buffer = malloc(sizeof(char) * 1024);
+        if (buffer == NULL)
+                return (-1);
+        nread = read(STDIN_FILENO, buffer, 1024);
+        if (nread == 0)
         {
-            bytes_allocated += READ_SIZE;
-            line = realloc(line, bytes_allocated);
-            if (!line)
-                return (NULL);
+                free(buffer);
+                return (-1);
         }
-
-        /* Read a chunk of data from the file descriptor */
-        ssize_t bytes_read = read(fd, line + total_bytes, READ_SIZE);
-        if (bytes_read < 0)
-            return (NULL);
-        if (bytes_read == 0)
+        while (buffer[i] != '\n')
         {
-            if (total_bytes == 0)
-                return (NULL);
-            break;
+                i++;
+                size++;
         }
-
-        /* Update the total number of bytes read */
-        total_bytes += bytes_read;
-
-        /* Check if we have reached the end of a line */
-        line_length = strnlen(line, total_bytes);
-        if (line[line_length - 1] == '\n')
-            break;
-    }
-
-    /* Trim any trailing newlines */
-    while (line_length > 0 && (line[line_length - 1] == '\n' || line[line_length - 1] == '\r'))
-        line[--line_length] = '\0';
-
-    /* Shrink the buffer to fit the line */
-    char *new_line = realloc(line, line_length + 1);
-    if (!new_line)
-        return (NULL);
-    line = new_line;
-
-    return (line_length ? line : NULL);
+        *line = malloc(sizeof(char) * (size + 1));
+        if (*line == NULL)
+        {
+                free(buffer);
+                return (-1);
+        }
+        _strncpy(*line, buffer, size);
+        free(buffer);
+        return (size);
 }
+
+
+
+
+
+
 
