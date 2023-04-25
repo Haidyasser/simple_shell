@@ -7,7 +7,7 @@
  */
 void display(char *str)
 {
-	int len = strlen(str);
+	int len = _strlen(str);
 
 	write(1, str, len);
 }
