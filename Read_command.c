@@ -1,18 +1,18 @@
 #include "shell.h"
 
 /**
- * read_command - read a command
- * Return: command
+ * read_command - reads the command line
+ * @nread: number of characters the user types
+ * Return: the command line
  */
 
-char *read_command()
+char *read_command(int *nread)
 {
 	char *buf;
 	size_t n = 0;
-	int status;
 
-	status = getline(&buf, &n, stdin);
-	if (status == -1)
+	*nread = getline(&buf, &n, stdin);
+	if (*nread == -1)
 	{
 		if (feof(stdin))
 		{
