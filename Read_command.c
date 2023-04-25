@@ -9,9 +9,8 @@
 char *read_command(int *nread)
 {
 	char *buf;
-	size_t n = 0;
 
-	*nread = getline(&buf, &n, stdin);
+	*nread = _getline(&buf);
 	if (*nread == -1)
 	{
 		if (feof(stdin))
