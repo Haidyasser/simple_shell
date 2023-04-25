@@ -22,9 +22,7 @@ int shell_exit(char **args)
 int shell_env(char **args)
 {
 	int i;
-	char **environ;
 
-	environ = __environ;
 	if (args[1] == NULL)
 	{
 		for (i = 0; environ[i] != NULL; i++)
