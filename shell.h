@@ -1,6 +1,7 @@
 #ifndef SHELL_H
 #define SHELL_H
-#define delim " \n\"\'*;"
+#define delim " \n\"\';*"
+#define environ __environ
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -26,5 +27,7 @@ int shell_cd(char **);
 int _strcmp(char *, char *);
 char *_strcpy(char *, char *);
 int _strlen(char *);
+char *_strdup(char *);
+char *_strcat(char *, char *);
 
 #endif
