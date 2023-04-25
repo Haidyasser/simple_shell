@@ -1,44 +1,63 @@
 #include "shell.h"
 
 /**
+ * _strcpy - copy a string
+ * @dest: destination
+ * @src: source
+ */
+
+void _strcpy(char *dest, char *src)
+{
+	int i;
+
+	for (i = 0; src[i] != '\0'; i++)
+		dest[i] = src[i];
+	dest[i] = '\0';
+}
+
+/**
  * split_command - split a command
  * @command: command to split
+ * @nread: number of characters the user types
  * Return: array of strings
  */
 
-char **split_command(char *command)
+char **split_command(char *command, int *nread)
 {
-	char **tokens;
-	char *token;
-	int bufsize = 64, position = 0;
+	char *copied, *token;
+	char **args;
+	int num_tokens = 0, i;
 
-	tokens = malloc(bufsize * sizeof(char *));
-	if (!tokens)
+	copied = malloc(sizeof(char) * (*nread + 1));
+	if (copied == NULL)
 	{
-		perror("malloc error");
+		perror("malloc");
+		exit(EXIT_FAILURE);
+	}
+	_strcpy(copied, command);
+
+	token = strtok(copied, delim);
+	while (token != NULL)
+	{
+		num_tokens++;
+		token = strtok(NULL, delim);
+	}
+
+	args = malloc(sizeof(char *) * (num_tokens + 1));
+	if (args == NULL)
+	{
+		perror("malloc");
 		exit(EXIT_FAILURE);
 	}
 
-	token = strtok(command, " \n\"\'");
-	while (token != NULL)
+	token = strtok(command, delim);
+	for (i = 0; i < num_tokens; i++)
 	{
-		tokens[position] = token;
-		position++;
-
-		if (position >= bufsize)
-		{
-			bufsize += 64;
-			tokens = realloc(tokens, bufsize * sizeof(char *));
-			if (!tokens)
-			{
-				perror("realloc error");
-				exit(EXIT_FAILURE);
-			}
-		}
-
-		token = strtok(NULL, " \n\"\'");
+		args[i] = token;
+		token = strtok(NULL, delim);
 	}
-	tokens[position] = NULL;
-	return (tokens);
+	args[i] = NULL;
 
+	free(copied);
+	return (args);
 }
