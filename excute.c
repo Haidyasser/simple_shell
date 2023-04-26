@@ -76,7 +76,7 @@ int (*built_in_func[]) (char **) = {
  * Return: 1
  */
 
-int excute(char **args)
+int excute(char **args, char **av)
 {
 	int i, status;
 	pid_t pid;
@@ -91,8 +91,12 @@ int excute(char **args)
 	location = get_location(args[0]);
 	if (location == NULL)
 	{
-		perror("Error");
-		return (1);
+		display(av[0]);
+		display(": 1: ");
+		display(args[0]);
+		display(": not found\n");
+	
+		return (0);
 	}
 	pid = fork();
 	if (pid == 0)
