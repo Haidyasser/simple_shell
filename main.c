@@ -13,7 +13,7 @@ int main(void)
 
 	while (status)
 	{
-		display(">> ");
+		display("$cisfun# ");
 		command = read_command(&nread);
 		args = split_command(command, &nread);
 		status = excute(args);

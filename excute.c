@@ -109,6 +109,6 @@ int excute(char **args)
 			waitpid(pid, &status, WUNTRACED);
 		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
 	}
-	free(location);
+	
 	return (1);
 }
