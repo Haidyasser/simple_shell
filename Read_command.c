@@ -30,6 +30,8 @@ char *read_command(int *nread)
 		if (feof(stdin))
 		{
 			free(buf);
+			if (isatty(STDIN_FILENO))
+				display("\n");
 			exit(EXIT_SUCCESS);
 		}
 		perror("readline");
