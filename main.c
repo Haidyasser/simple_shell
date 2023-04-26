@@ -1,8 +1,7 @@
 #include "shell.h"
 
 /**
- * char *handle_comments(char *command)
- * Description: handle comments
+ * handle_comments - handle comments
  * @command: command to handle
  * Return: command without comments
  */
@@ -22,7 +21,8 @@ char *handle_comments(char *command)
 		}
 		i++;
 	}
-	return (command);	
+
+	return (command);
 }
 
 /**
