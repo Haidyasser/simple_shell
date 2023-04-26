@@ -97,7 +97,7 @@ int excute(char **args, char **av)
 		display(args[0]);
 		display(": not found\n");
 
-		return (0);
+		return (1);
 	}
 	pid = fork();
 	if (pid == 0)
