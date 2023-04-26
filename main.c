@@ -1,6 +1,29 @@
 #include "shell.h"
 
 /**
+ * char *handle_comments(char *command)
+ * Description: handle comments
+ * @command: command to handle
+ * Return: command without comments
+ */
+
+char *handle_comments(char *command)
+{
+	int i = 0;
+
+	while (command[i] != '\0')
+	{
+		if (command[i] == '#')
+		{
+			command[i] = '\0';
+			break;
+		}
+		i++;
+	}
+	return (command);	
+}
+
+/**
  * main - main function
  * @ac: number of arguments
  * @av: array of arguments
@@ -21,11 +44,7 @@ int main(int ac, char **av)
 		signal(SIGINT, handler);
 		cnt++;
 		command = read_command(&nread);
-		if(command && command[0] == '#')
-		{
-			free(command);
-			continue;
-		}
+		command = handle_comments(command);
 		args = split_command(command, &nread);
 		status = excute(args, av, cnt);
 
