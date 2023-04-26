@@ -9,7 +9,7 @@
 void handler(int sig)
 {
 	(void)sig;
-	display("\n$cisfun# ");
+	display("$cisfun# ");
 }
 
 /**
@@ -30,7 +30,6 @@ char *read_command(int *nread)
 		if (feof(stdin))
 		{
 			free(buf);
-			write(1, "\n", 1);
 			exit(EXIT_SUCCESS);
 		}
 		perror("readline");
