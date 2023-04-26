@@ -21,6 +21,11 @@ int main(int ac, char **av)
 		signal(SIGINT, handler);
 		cnt++;
 		command = read_command(&nread);
+		if(command && command[0] == '#')
+		{
+			free(command);
+			continue;
+		}
 		args = split_command(command, &nread);
 		status = excute(args, av, cnt);
 
