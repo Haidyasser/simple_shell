@@ -11,6 +11,8 @@ char *handle_comments(char *command)
 {
 	int i = 0;
 
+	if (command == NULL)
+		return (NULL);
 	while (command[i] != '\0')
 	{
 		if (command[i] == '#')
