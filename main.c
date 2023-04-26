@@ -19,7 +19,7 @@ int main(int ac, char **av)
 		if (isatty(STDIN_FILENO))
 			display("$cisfun# ");
 		signal(SIGINT, handler);
-	
+
 		command = read_command(&nread);
 		args = split_command(command, &nread);
 		status = excute(args, av);
