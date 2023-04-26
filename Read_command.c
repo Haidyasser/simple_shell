@@ -29,7 +29,7 @@ char *read_command(int *nread)
 	char *buf = NULL;
 	size_t bufsize = 0;
 
-	signal(SIGINT, handler);
+	/*signal(SIGINT, handler);*/
 	*nread = getline(&buf, &bufsize, stdin);
 	if (*nread == -1)
 	{
