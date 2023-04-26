@@ -1,6 +1,25 @@
 #include "shell.h"
 
 /**
+ * _strcat - concatenates two strings
+ * @dest: destination string
+ * @src: source string
+ * Return: the concatenated string
+ */
+
+char *_strcat(char *dest, char *src)
+{
+	int i, j;
+
+	for (i = 0; dest[i] != '\0'; i++)
+		;
+	for (j = 0; src[j] != '\0'; j++)
+		dest[i + j] = src[j];
+	dest[i + j] = '\0';
+	return (dest);
+}
+
+/**
  * _getenv - gets the value of an environment variable
  * @name: the name of the environment variable
  * Return: the value of the environment variable
@@ -42,7 +61,6 @@ char *get_location(char *command)
 	int command_length, directory_length;
 	struct stat buffer;
 
-
 	path = _getenv("PATH");
 	if (path)
 	{
@@ -62,7 +80,6 @@ char *get_location(char *command)
 			if (stat(file_path, &buffer) == 0)
 			{
 				free(path_copy);
-
 				return (file_path);
 			}
 			else

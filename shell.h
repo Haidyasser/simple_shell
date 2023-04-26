@@ -1,6 +1,6 @@
 #ifndef SHELL_H
 #define SHELL_H
-#define delim " \n\"\';*()&|<>?[]{}\\`~!@#$%^=+,"
+#define delim " \n"
 #define environ __environ
 
 #include <stdio.h>
@@ -10,12 +10,15 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <sys/stat.h>
+#include <signal.h>
+#include  <signal.h>
+#include <errno.h>
 
 /*main functions*/
 void display(char *);
 char *read_command(int *);
 char **split_command(char *, int *);
-int excute(char **);
+int excute(char **, char **);
 char *get_location(char *command);
 int _getline(char **line);
 
@@ -23,6 +26,7 @@ int _getline(char **line);
 int shell_exit(char **);
 int shell_env(char **);
 int shell_cd(char **);
+void handler(int);
 
 /*string functions*/
 int _strcmp(char *, char *);
