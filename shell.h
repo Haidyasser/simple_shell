@@ -12,6 +12,7 @@
 #include <sys/stat.h>
 #include <signal.h>
 #include  <signal.h>
+#include <errno.h>
 
 /*main functions*/
 void display(char *);
@@ -25,7 +26,7 @@ int _getline(char **line);
 int shell_exit(char **);
 int shell_env(char **);
 int shell_cd(char **);
-void handlec(int sig);
+void handler(int);
 
 /*string functions*/
 int _strcmp(char *, char *);
