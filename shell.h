@@ -1,6 +1,6 @@
 #ifndef SHELL_H
 #define SHELL_H
-#define delim " \n"
+#define delim " \n\"\'"
 #define environ __environ
 
 #include <stdio.h>
@@ -16,9 +16,10 @@
 
 /*main functions*/
 void display(char *);
+void display_number(int);
 char *read_command(int *);
 char **split_command(char *, int *);
-int excute(char **, char **);
+int excute(char **, char **, int);
 char *get_location(char *command);
 int _getline(char **line);
 

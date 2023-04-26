@@ -74,10 +74,11 @@ int (*built_in_func[]) (char **) = {
  * excute - excute a command in the shell
  * @args: array of words in the command line
  * @av: array of arguments
+ * @cnt: number of commands
  * Return: 1
  */
 
-int excute(char **args, char **av)
+int excute(char **args, char **av, int cnt)
 {
 	int i, status;
 	pid_t pid;
@@ -93,7 +94,9 @@ int excute(char **args, char **av)
 	if (location == NULL)
 	{
 		display(av[0]);
-		display(": 1: ");
+		display(": ");
+		display_number(cnt);
+		display(": ");
 		display(args[0]);
 		display(": not found\n");
 

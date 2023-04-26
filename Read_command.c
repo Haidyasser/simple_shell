@@ -9,7 +9,7 @@
 void handler(int sig)
 {
 	(void)sig;
-	display("\n$cisfun# ");
+	display("\n$ ");
 }
 
 /**
