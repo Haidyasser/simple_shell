@@ -73,6 +73,7 @@ int (*built_in_func[]) (char **) = {
 /**
  * excute - excute a command in the shell
  * @args: array of words in the command line
+ * @av: array of arguments
  * Return: 1
  */
 
@@ -95,7 +96,7 @@ int excute(char **args, char **av)
 		display(": 1: ");
 		display(args[0]);
 		display(": not found\n");
-	
+
 		return (0);
 	}
 	pid = fork();
@@ -113,6 +114,6 @@ int excute(char **args, char **av)
 			waitpid(pid, &status, WUNTRACED);
 		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
 	}
-	
+
 	return (1);
 }

@@ -2,6 +2,8 @@
 
 /**
  * main - main function
+ * @ac: number of arguments
+ * @av: array of arguments
  * Return: 0
  */
 
