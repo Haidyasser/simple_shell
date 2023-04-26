@@ -1,11 +1,5 @@
 #include "shell.h"
 
-void handlec(int sig)
-{
-	signal(sig, handlec);
-	write(1, "\n>> ", 4);
-}
-
 /**
  * handler - handles the signal
  * @sig: signal
