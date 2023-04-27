@@ -111,10 +111,7 @@ int excute(char **args, char **av, int cnt)
 		exit(EXIT_FAILURE);
 	}
 	else if (pid < 0)
-	{
-		free(location);
 		perror("Error");
-	}
 	else
 	{
 		do {
@@ -122,6 +119,5 @@ int excute(char **args, char **av, int cnt)
 		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
 	}
 
-	free(location);
 	return (1);
 }
